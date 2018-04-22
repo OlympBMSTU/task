@@ -2,11 +2,14 @@ package com.olymp.variants.controllers;
 
 import com.olymp.variants.services.VariantService;
 import com.olymp.variants.views.QuestionView;
+import jdk.jfr.Threshold;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
+@RequestMapping(path = "/api/variants/")
 public class VariantsController {
     private final VariantService variantService;
 
@@ -15,7 +18,7 @@ public class VariantsController {
     }
 
 
-    @GetMapping(path = "/api/variants/get", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "get", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getVariant(@RequestParam(value = "variant", required = false) Integer variant) {
         if (variant == null) {
             variant = 1;
@@ -32,9 +35,10 @@ public class VariantsController {
         return ResponseEntity.ok("Ok");
     }
 
-    @PostMapping(path = "/create_variant/", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(path = "/create_variant", //consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createVariant() {
+    public ResponseEntity<Object> createVariant(@RequestParam(value = "id", required = true) Integer id) {
+        variantService.createVariant(id);
         return ResponseEntity.ok("Ok");
     }
 }

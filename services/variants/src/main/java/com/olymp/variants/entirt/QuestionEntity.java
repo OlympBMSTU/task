@@ -1,9 +1,12 @@
 package com.olymp.variants.entirt;
 
+import com.olymp.variants.views.QuestionView;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 
@@ -11,33 +14,38 @@ import java.util.Map;
 @Document(collection = QuestionEntity.COLLECTION_NAME)
 public class QuestionEntity implements Serializable {
     static final String COLLECTION_NAME = "test";
-    @Field("id")
-    Integer id;
-    String question;
-//    List<Answer> answers;
-    Map<Integer, String> answers;
-    byte[] image;
+    //@Id
+    //String id;
+    //@Field("int_id")
+    Integer intId;
 
-    public QuestionEntity(String question, Map<Integer, String> answers, byte[] image) {
+    String question;
+    List<AnswerEntity> answers;
+    String image;
+    String type;
+
+    public QuestionEntity(String question, List<AnswerEntity> answers, String type, String image) {
         this.answers = answers;
         this.question = question;
         this.image = image;
+        this.type = type;
     }
 
+    //public String getId() {
+      //  return id;
+    //}
 
-//    class Answer {
-//        Integer id;
-//        String type;
-//        String answer;
+    public Integer getIntId() {
+        return this.intId;
+    }
+
+    public void setIntId(Integer id) {
+        this.intId = id;
+    }
+
+//    public void setId(String id) {
+//        this.id = id;
 //    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getQuestion() {
         return question;
@@ -47,19 +55,27 @@ public class QuestionEntity implements Serializable {
         this.question = question;
     }
 
-    public Map<Integer, String> getAnswers() {
+    public List<AnswerEntity> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Map<Integer, String> answers) {
+    public void setAnswers(List<AnswerEntity> answers) {
         this.answers = answers;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return this.type;
     }
 }

@@ -20,4 +20,7 @@ public class VariantService {
         variantRepository.addQuestion(id, question);
     }
 
+    public void createVariant(Integer id) {
+        variantRepository.createVariant(id);
+    }
 }
