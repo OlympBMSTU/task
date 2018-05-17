@@ -6,34 +6,30 @@ import com.olymp.excercices.views.ExcercieseView;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-// TODO add service authoriz
 @RestController
 @RequestMapping(path = "/api/excercies/")
 public class ExcercieseController {
     private final ExcercieseService excercieseService;
-//    private final RestTemplate restTemplate;
 
     public ExcercieseController(ExcercieseService excercieseService) {
         this.excercieseService = excercieseService;
-//        this.restTemplate = new RestTemplate();
     }
-
 
     @GetMapping(path = "excerciese/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getExcerciese(@PathVariable(name = "id") String id) {
-        return null;
+
+        return ResponseEntity.ok("d");
     }
 
     @GetMapping(path = "/exercieses", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getExcercices(@RequestParam(name = "limit", required = false) Integer limit,
                                                 @RequestParam(name = "offset", required = false) Integer offset) {
-        List<ExcercieseEntity> excercieses = excercieseService.getList(limit, offset);
+        final List<ExcercieseEntity> excercieses = excercieseService.getList(limit, offset);
+
         return ResponseEntity.ok(excercieses);
-//        return null;
     }
 
     @PatchMapping(path = "create", produces = MediaType.APPLICATION_JSON_VALUE,

@@ -1,0 +1,11 @@
+CREATE EXTENSION IF NOT EXISTS CITEXT;
+
+
+CREATE TABLE IF NOT EXISTS userprofiles (
+  id       SERIAL PRIMARY KEY,
+  nickname    CITEXT UNIQUE,
+  password CITEXT NOT NULL,
+  email    CITEXT UNIQUE,
+  phone CITEXT NOT NULL,
+  role CITEXT NOT NULL
+);
