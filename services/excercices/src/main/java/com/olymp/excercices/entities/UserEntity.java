@@ -17,6 +17,16 @@ public class UserEntity {
         this.phone = phone;
     }
 
+    public UserEntity(String role, String nickname, String password, String email, String phone) {
+        if (role == null) {
+            this.role = "user";
+        }
+        this.nickname = nickname;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public Integer getId() {
         return id;
     }

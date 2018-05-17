@@ -1,10 +1,13 @@
 package com.olymp.excercices.entities;
 
 import com.olymp.excercices.views.ExcercieseView;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@Document(collection = ExcercieseEntity.COLLECTION)
 public class ExcercieseEntity {
+    public static final String COLLECTION = "test";
     private String question;
     private List<AnswerEntity> answers;
     private String image;

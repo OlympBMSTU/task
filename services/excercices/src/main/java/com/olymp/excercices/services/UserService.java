@@ -4,6 +4,8 @@ import com.olymp.excercices.entities.UserEntity;
 import com.olymp.excercices.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -11,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotNull;
 
 @Service
@@ -32,11 +35,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    @Bean
     private PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    private ResponseCode authorize(UserEntity userEntity) {
+    public ResponseCode authorize(UserEntity userEntity) {
         try {
             final UserEntity existingUser = userRepository.getOne(userEntity.getNickname());
             if (!passwordEncoder().matches(userEntity.getPassword(), existingUser.getPassword())) {
@@ -52,7 +56,7 @@ public class UserService {
         return ResponseCode.OK;
     }
 
-    private ResponseCode save(UserEntity userEntity) {
+    public ResponseCode save(UserEntity userEntity) {
         userEntity.setPassword(passwordEncoder().encode(userEntity.getPassword()));
 
         try {
@@ -72,7 +76,7 @@ public class UserService {
     }
 
     // implement
-    private ResponseCode update() {
+    public ResponseCode update() {
         return null;
     }
 }
