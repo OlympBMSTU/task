@@ -1,6 +1,6 @@
 package com.olymp.variants.services;
 
-import com.olymp.variants.entirt.QuestionEntity;
+import com.olymp.variants.entities.QuestionEntity;
 import com.olymp.variants.repositories.VariantRepository;
 import org.springframework.stereotype.Service;
 

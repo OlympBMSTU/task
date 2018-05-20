@@ -1,6 +1,6 @@
-package com.olymp.excercices.repositories;
+package com.olymp.participants.repositories;
 
-import com.olymp.excercices.entities.UserEntity;
+import com.olymp.participants.entities.UserEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

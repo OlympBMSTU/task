@@ -13,13 +13,16 @@ public class ExcercieseEntity {
     private String image;
     private String type;
     private String subject;
+    private List<AnswerEntity> rightAnswers;
 
-    public ExcercieseEntity(String question, List<AnswerEntity> answers, String image, String type, String subject) {
+    public ExcercieseEntity(String question, List<AnswerEntity> answers, List<AnswerEntity> rightAnswers,
+                            String image, String type, String subject) {
         this.question = question;
         this.answers = answers;
         this.image = image;
         this.type = type;
         this.subject = subject;
+        this.rightAnswers = rightAnswers;
     }
 
     public String getQuestion() {
@@ -28,6 +31,14 @@ public class ExcercieseEntity {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public List<AnswerEntity> getRightAnswers() {
+        return rightAnswers;
+    }
+
+    public void setRightAnswers(List<AnswerEntity> rightAnswers) {
+        this.rightAnswers = rightAnswers;
     }
 
     public List<AnswerEntity> getAnswers() {

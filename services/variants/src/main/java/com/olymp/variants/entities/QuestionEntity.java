@@ -1,28 +1,26 @@
-package com.olymp.variants.entirt;
+package com.olymp.variants.entities;
 
-import com.olymp.variants.views.QuestionView;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
-
 
 
 @Document(collection = QuestionEntity.COLLECTION_NAME)
 public class QuestionEntity implements Serializable {
     static final String COLLECTION_NAME = "test";
-    //@Id
-    //String id;
-    //@Field("int_id")
-    Integer intId;
+    // todo delete this
+    @Id
+    private Integer id;
+//    private Integer intId;
+    private String question;
+    private List<AnswerEntity> answers;
+    private String image;
+    private String type;
 
-    String question;
-    List<AnswerEntity> answers;
-    String image;
-    String type;
+    // DELETE THIS
+    private List<AnswerEntity> rightAnswer;
 
     public QuestionEntity(String question, List<AnswerEntity> answers, String type, String image) {
         this.answers = answers;
@@ -31,20 +29,30 @@ public class QuestionEntity implements Serializable {
         this.type = type;
     }
 
-    //public String getId() {
-      //  return id;
-    //}
-
-    public Integer getIntId() {
-        return this.intId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIntId(Integer id) {
-        this.intId = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-//    public void setId(String id) {
-//        this.id = id;
+    public void setRightAnswer(List<AnswerEntity> rightAnswer) {
+        this.rightAnswer = rightAnswer;
+    }
+
+    public List<AnswerEntity> getRightAnswer() {
+        return rightAnswer;
+    }
+
+    //
+
+//    public Integer getIntId() {
+//        return this.intId;
+//    }
+//
+//    public void setIntId(Integer id) {
+//        this.intId = id;
 //    }
 
     public String getQuestion() {

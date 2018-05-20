@@ -1,4 +1,4 @@
-package com.olymp.variants.entirt;
+package com.olymp.variants.entities;
 
 public class AnswerEntity {
     String value;

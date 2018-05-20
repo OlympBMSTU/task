@@ -1,4 +1,4 @@
-package com.olymp.variants.entirt;
+package com.olymp.variants.entities;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

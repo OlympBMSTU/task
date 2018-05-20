@@ -8,12 +8,15 @@ import com.olymp.excercices.entities.ExcercieseEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ExcercieseView {
     private String subject;
     private String type;
     private String question;
     private List<Answer> answers;
     private String image;
+    private List<Answer> rightAnswers;
+
 
     public static class Answer {
         String value;
@@ -28,13 +31,25 @@ public class ExcercieseView {
 
     @JsonCreator
     public ExcercieseView(@JsonProperty("question") String question,
-                 @JsonProperty("subject") String subject,
-                 @JsonProperty("answers") List<Answer> answers,
-                 @JsonProperty("image") String image) {
+                          @JsonProperty("subject") String subject,
+                          @JsonProperty("answers") List<Answer> answers,
+                          @JsonProperty("image") String image,
+                          @JsonProperty("type") String type,
+                          @JsonProperty("rightAnswers") List<Answer> rightAnswers) {
         this.answers = answers;
         this.image = image;
         this.subject = subject;
         this.question = question;
+        this.type = type;
+        this.rightAnswers = rightAnswers;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public List<Answer> getRightAnswers() {
+        return rightAnswers;
     }
 
     public String getQuestion() {
@@ -71,7 +86,9 @@ public class ExcercieseView {
 
     public ExcercieseEntity toEntity() {
         List<AnswerEntity> answersEntity = new ArrayList<>();
-        answers.forEach(answer -> answersEntity.add( new AnswerEntity(answer.value, answer.text)));
-        return  new ExcercieseEntity(question, answersEntity, type, image, subject);
+        List<AnswerEntity> rightAE = new ArrayList<>();
+        answers.forEach(answer -> answersEntity.add(new AnswerEntity(answer.value, answer.text)));
+        rightAnswers.forEach(answer -> rightAE.add(new AnswerEntity(answer.value, answer.text)));
+        return new ExcercieseEntity(question, answersEntity, rightAE, type, image, subject);
     }
 }
