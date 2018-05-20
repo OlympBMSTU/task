@@ -22,16 +22,21 @@ public class ExcercieseService {
         this.excercieseRepository = excercieseRepository;
     }
 
-    public void save(ExcercieseEntity excercieseEntity) {
-        excercieseRepository.save(excercieseEntity);
+    public List<String> getListIds(String collectionName, Integer limit, Integer offset) {
+        return excercieseRepository.getListIds(collectionName, limit, offset);
     }
 
-    public ExcercieseEntity getOne(String id) {
-        return excercieseRepository.getOne(id);
+
+    public void save(ExcercieseEntity excercieseEntity, String collectionName) {
+        excercieseRepository.save(excercieseEntity, collectionName);
     }
 
-    public List<ExcercieseEntity> getList(Integer limit, Integer offset) {
-        return excercieseRepository.getList(limit, offset);
+    public ExcercieseEntity getOne(String collectionName, String id) {
+        return excercieseRepository.getOne(collectionName, id);
+    }
+
+    public List<ExcercieseEntity> getList(String collectionName, Integer limit, Integer offset) {
+        return excercieseRepository.getList(collectionName, limit, offset);
     }
 
 

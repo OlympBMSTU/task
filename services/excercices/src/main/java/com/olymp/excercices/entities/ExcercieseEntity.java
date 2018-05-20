@@ -5,24 +5,29 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collection = ExcercieseEntity.COLLECTION)
-public class ExcercieseEntity {
-    public static final String COLLECTION = "test";
+
+//@Document(collection = ExcercieseEntity.COLLECTION)
+@Document
+public class ExcercieseEntity implements IEntity {
+//    public static final String COLLECTION = "test";
     private String question;
     private List<AnswerEntity> answers;
     private String image;
     private String type;
     private String subject;
     private List<AnswerEntity> rightAnswers;
+    private Integer level;
+
 
     public ExcercieseEntity(String question, List<AnswerEntity> answers, List<AnswerEntity> rightAnswers,
-                            String image, String type, String subject) {
+                            String image, String type, Integer level) {
         this.question = question;
         this.answers = answers;
         this.image = image;
         this.type = type;
-        this.subject = subject;
+//        this.subject = subject;
         this.rightAnswers = rightAnswers;
+        this.level = level;
     }
 
     public String getQuestion() {
