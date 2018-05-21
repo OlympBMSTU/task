@@ -2,11 +2,9 @@ package com.olymp.excercices.views;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.olymp.excercices.entities.AnswerEntity;
 import com.olymp.excercices.entities.ExcercieseEntity;
-import com.olymp.excercices.entities.IEntity;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
+import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +15,62 @@ public class ExcercieseView {
     private String type;
     private String question;
     private List<Answer> answers;
+    @Nullable
     private String image;
+    // crutch
     private List<Answer> rightAnswers;
     private Subject subject;
     private Integer level;
 
     public static class Answer {
+        String id;
         String value;
         String text;
+        Boolean correct;
 
         @JsonCreator
-        Answer(@JsonProperty("value") String value, @JsonProperty("text") String text) {
+        Answer(@JsonProperty("value") String value, @JsonProperty("text") String text,
+        @JsonProperty("id") String id, @JsonProperty("correct") Boolean correct) {
             this.value = value;
             this.text = text;
+            this.id = id;
+            this.correct = correct;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public Boolean isCorrect() {
+            return correct;
+        }
+
+        public void setCorrect(Boolean correct) {
+            this.correct = correct;
         }
     }
+
+
 
     public void setType(String type) {
         this.type = type;
@@ -109,8 +148,13 @@ public class ExcercieseView {
     public ExcercieseEntity toEntity() {
         List<AnswerEntity> answersEntity = new ArrayList<>();
         List<AnswerEntity> rightAE = new ArrayList<>();
-        answers.forEach(answer -> answersEntity.add(new AnswerEntity(answer.value, answer.text)));
-        rightAnswers.forEach(answer -> rightAE.add(new AnswerEntity(answer.value, answer.text)));
-        return new ExcercieseEntity(question, answersEntity, rightAE, type, image, level);
+        answers.forEach(answer -> {
+            AnswerEntity answerEntity = new AnswerEntity(answer.getId(), answer.getValue(), answer.getText(), answer.isCorrect());
+            answersEntity.add(answerEntity);
+            if (answer.isCorrect()) {
+                rightAE.add(answerEntity);
+            }
+        });
+        return new ExcercieseEntity(question, answersEntity, rightAE, image, type, level);
     }
 }

@@ -1,20 +1,16 @@
 package com.olymp.excercices.entities;
 
-import com.olymp.excercices.views.ExcercieseView;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 
-//@Document(collection = ExcercieseEntity.COLLECTION)
 @Document
-public class ExcercieseEntity implements IEntity {
-//    public static final String COLLECTION = "test";
+public class ExcercieseEntity {
     private String question;
     private List<AnswerEntity> answers;
     private String image;
     private String type;
-    private String subject;
     private List<AnswerEntity> rightAnswers;
     private Integer level;
 
@@ -70,12 +66,12 @@ public class ExcercieseEntity implements IEntity {
         this.type = type;
     }
 
-    public String getSubject() {
-        return subject;
+    public Integer getLevel() {
+        return level;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }
 

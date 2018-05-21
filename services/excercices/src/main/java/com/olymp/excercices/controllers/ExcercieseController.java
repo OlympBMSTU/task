@@ -13,8 +13,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static com.olymp.excercices.controllers.Config.SESSION_KEY;
-//    @GetMapping(path = "get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @GetMapping(path = "get_list", produces = MediaType.APPLICATION_JSON_VALUE)
 
 @RestController
 @RequestMapping(path = "/api/excercieses/")
@@ -28,7 +26,7 @@ public class ExcercieseController {
     @PostMapping(path = "get/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getExcerciese(@RequestBody GetVariantView getVariantView,
-            @PathVariable(name = "id") String id, HttpSession httpSession) {
+                                                @PathVariable(name = "id") String id, HttpSession httpSession) {
         String nickname = (String) httpSession.getAttribute(SESSION_KEY);
         if (nickname == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("please authorzize");
@@ -40,7 +38,7 @@ public class ExcercieseController {
     }
 
     @PostMapping(path = "get_list_ids", consumes = MediaType.APPLICATION_JSON_VALUE,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getListIds(@RequestBody GetVariantView getVariantView,
                                              @RequestParam(name = "limit", required = false) Integer limit,
                                              @RequestParam(name = "offset", required = false) Integer offset,
@@ -50,7 +48,7 @@ public class ExcercieseController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("please authorzize");
         }
 
-        final List<String> excercieses = excercieseService.getListIds(getVariantView.getSubject().getName(), limit, offset);
+        final List<ExcercieseEntity> excercieses = excercieseService.getListIds(getVariantView.getSubject().getName(), limit, offset);
 
         // todo return it in view
         return ResponseEntity.ok(excercieses);
@@ -82,10 +80,6 @@ public class ExcercieseController {
         }
 
         excercieseService.save(excercieseView.toEntity(), excercieseView.getSubject().getName());
-
-//        Class clazz = excercieseView.toEntity().getClass();
-
-//        excercieseService.save(clazz.cast(excercieseView.toEntity()));
         return ResponseEntity.ok("Ok");
     }
 

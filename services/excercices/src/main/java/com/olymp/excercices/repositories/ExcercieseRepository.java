@@ -26,12 +26,13 @@ public class ExcercieseRepository {
         return mongoOperations.findOne(Query.query(Criteria.where("_id").is(id)), ExcercieseEntity.class, collectionName);
     }
 
-    public List<String> getListIds(String collectionName, Integer limit, Integer offset) {
+    public List<ExcercieseEntity> getListIds(String collectionName, Integer limit, Integer offset) {
         Query query = new Query();
         query.limit(limit);
         query.skip(offset);
         query.fields().include("_id");
-        return mongoOperations.find(query, String.class, collectionName);
+
+        return mongoOperations.find(query, ExcercieseEntity.class, collectionName);
     }
 
     public List<ExcercieseEntity> getList(String collectionName, Integer limit, Integer offset) {
