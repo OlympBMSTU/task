@@ -1,18 +1,21 @@
 package com.performance.test.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AnswerEntity {
     private String id;
     private String value;
     private String text;
     private Boolean correct;
 
-    public AnswerEntity(String id, String value, String text, Boolean correct) {
+    @JsonCreator
+    public AnswerEntity(@JsonProperty("id") String id, @JsonProperty("value") String value,
+                        @JsonProperty("text") String text) {
         this.id = id;
         this.value = value;
         this.text = text;
-        this.correct = correct;
     }
-
 
     public String getId() {
         return id;

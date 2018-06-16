@@ -1,5 +1,6 @@
 package com.performance.test.controllers;
 
+import com.performance.test.Statistic;
 import com.performance.test.entities.ExcercieseEntityM;
 import com.performance.test.entities.ExcercieseEntityP;
 import com.performance.test.servcies.ExcercieseM;
@@ -19,10 +20,11 @@ import java.util.List;
 public class Controller {
     private final ExcercieseP excercieseP;
     private final ExcercieseM excerccieseM;
-
-    public Controller(ExcercieseP excercieseP, ExcercieseM excercieseM) {
+    private final Statistic statistic;
+    public Controller(ExcercieseP excercieseP, ExcercieseM excercieseM, Statistic statistic) {
         this.excercieseP = excercieseP;
         this.excerccieseM = excercieseM;
+        this.statistic = statistic;
     }
 
     @PostMapping(path = "get/{db}/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -109,4 +111,27 @@ public class Controller {
             return ResponseEntity.ok(excercieseP.getListByTypeAndLevel(level, type, limit, offset));
         }
     }
+
+    @PostMapping(path="test", consumes = MediaType.APPLICATION_JSON_VALUE,
+             produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> test(@RequestParam(name = "num") Integer num,
+                                       @RequestBody ExcercieseView excercieseView) {
+        ExcercieseEntityM e1 = ExcercieseEntityM.fromView(excercieseView);
+        ExcercieseEntityP e2 = ExcercieseEntityP.fromView(excercieseView);
+
+        for (int i = 0; i < num; i++) {
+            excercieseP.save(e2);
+            excerccieseM.save(e1, "test");
+        }
+
+        for (int i = 0; i < num; i++) {
+            excercieseP.getList(0, 100);
+            Object e = excerccieseM.getList("test", 0, 100);
+        }
+
+        int c = 1;
+        statistic.printResult();
+        return null;
+    }
+
 }

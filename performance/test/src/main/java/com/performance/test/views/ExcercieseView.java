@@ -10,9 +10,9 @@ public class ExcercieseView {
     private String type;
     private String question;
 //    private List<Answer> answers;
-    private List<String> answers;
+    private List<Answer> answers;
     private String image;
-    private List<String> rightAnswers;
+    private List<Answer> rightAnswers;
     // crutch
 //    private List<Answer> rightAnswers;
     private Subject subject;
@@ -82,10 +82,10 @@ public class ExcercieseView {
 
     @JsonCreator
     public ExcercieseView(@JsonProperty("question") String question,
-                          @JsonProperty("answers") List<String> answers,
+                          @JsonProperty("answers") List<Answer> answers,
                           @JsonProperty("image") String image,
                           @JsonProperty("type") String type,
-                          @JsonProperty("rightAnswers") List<String> rightAnswers,
+//                          @JsonProperty("rightAnswers") List<Answer> rightAnswers,
                           @JsonProperty("subject") Subject subject,
                           @JsonProperty("level") Integer level) {
         this.answers = answers;
@@ -113,7 +113,7 @@ public class ExcercieseView {
         return type;
     }
 
-    public List<String> getRightAnswers() {
+    public List<Answer> getRightAnswers() {
         return rightAnswers;
     }
 
@@ -125,11 +125,11 @@ public class ExcercieseView {
         this.question = question;
     }
 
-    public List<String> getAnswers() {
+    public List<Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<String> answers) {
+    public void setAnswers(List<Answer> answers) {
         this.answers = answers;
     }
 

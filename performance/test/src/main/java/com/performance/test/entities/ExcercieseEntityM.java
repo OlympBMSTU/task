@@ -4,19 +4,20 @@ import com.performance.test.views.ExcercieseView;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Document
 public class ExcercieseEntityM {
     private String question;
-    private List<String> answers;
+    private List<AnswerEntity> answers;
     private String image;
     private String type;
-    private List<String> rightAnswers;
+    private List<AnswerEntity> rightAnswers;
     private Integer level;
 
 
-    public ExcercieseEntityM(String question, List<String> answers, List<String> rightAnswers,
+    public ExcercieseEntityM(String question, List<AnswerEntity> answers, List<AnswerEntity> rightAnswers,
                              String image, String type, Integer level) {
         this.question = question;
         this.answers = answers;
@@ -34,19 +35,19 @@ public class ExcercieseEntityM {
         this.question = question;
     }
 
-    public List<String> getRightAnswers() {
+    public List<AnswerEntity> getRightAnswers() {
         return rightAnswers;
     }
 
-    public void setRightAnswers(List<String> rightAnswers) {
+    public void setRightAnswers(List<AnswerEntity> rightAnswers) {
         this.rightAnswers = rightAnswers;
     }
 
-    public List<String> getAnswers() {
+    public List<AnswerEntity> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<String> answers) {
+    public void setAnswers(List<AnswerEntity> answers) {
         this.answers = answers;
     }
 
@@ -75,7 +76,18 @@ public class ExcercieseEntityM {
     }
 
     public static ExcercieseEntityM fromView(ExcercieseView view) {
-        return new ExcercieseEntityM (view.getQuestion(), view.getAnswers(), view.getRightAnswers(), view.getImage(),
+        List<AnswerEntity> answerEntities = view.getAnswers()
+                .stream()
+                .map(answer -> new AnswerEntity(answer.getId(), answer.getText(), answer.getValue()))
+                .collect(Collectors.toList());
+
+        List<AnswerEntity> rightAnswers = view.getAnswers()
+                .stream()
+                .filter(ExcercieseView.Answer::isCorrect)
+                .map(answer -> new AnswerEntity(answer.getId(), answer.getText(), answer.getValue()))
+                .collect(Collectors.toList());
+
+        return new ExcercieseEntityM(view.getQuestion(), answerEntities, rightAnswers, view.getImage(),
                 view.getType(), view.getLevel());
     }
 }
